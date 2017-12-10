@@ -27,6 +27,16 @@
             android:name=".FinanceActivity"
             android:label="@string/title_activity_finance"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CustomDialogActivity"
+
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.AppCompat.Dialog"
+            />
+
+
         <activity android:name=".addActivity" />
         <activity android:name=".delActive" />
         <!--
@@ -43,7 +53,8 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+
     </application>
 
 </manifest>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialogBackground"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+
+    android:gravity="center_vertical|center_horizontal"
+    android:nestedScrollingEnabled="false"
+
+    android:orientation="vertical"
+    android:transitionGroup="false"
+    tools:context="com.example.ellis_wu.customdialogdemo.CustomDialogActivity">
+
+
+    <LinearLayout
+        android:layout_width="330dp"
+        android:layout_height="270dp"
+        android:background="#ffffffff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_margin="0dp"
+            android:background="#00D5D5"
+            android:focusable="true">
+
+            <Button
+                android:id="@+id/text_close"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="right"
+                android:layout_margin="5dp"
+                android:background="#00ffffff"
+                android:padding="5dp"
+                android:text="X"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/store_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="5dp"
+                android:minHeight="50dp"
+                android:padding="10dp"
+                android:text="客製化視窗"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/text_content"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:minHeight="100dp"
+            android:padding="30dp"
+            android:text="管理您的店舖!"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/black" />
+
+        <Button
+            android:id="@+id/store_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:text="商店地圖標記" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <Button
+                android:id="@+id/store_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="商品目錄管理" />
+
+            <Button
+                android:id="@+id/store_car"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="商品下單管理" />
+            <Button
+                android:id="@+id/stoer_sell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="商品銷售紀錄" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

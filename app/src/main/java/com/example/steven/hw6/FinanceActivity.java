@@ -38,8 +38,8 @@ public class FinanceActivity extends AppCompatActivity {
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
                 R.layout.store_all,
                 c,
-                new String[]{"_id","store_name" , "phone" , "address"},
-                new int[]{R.id.item_id , R.id.item_store_name , R.id.item_phone , R.id.item_address},
+                new String[]{"store_name" , "phone" , "address"},
+                new int[]{ R.id.item_store_name , R.id.item_phone , R.id.item_address},
                 0);
         list.setAdapter(adapter);
 

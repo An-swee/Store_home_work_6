@@ -1,9 +1,8 @@
 package com.example.steven.hw6;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private Button store_map_all;
     private ArrayAdapter<String> listAdapter ;
 
-    //private MyDBHelper helper;
+    private MyDBHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,27 +53,48 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        MyDBHelper helper = new MyDBHelper(this, "expense.db", null, 1);
-        Cursor c = helper.getReadableDatabase().query(
-                "exp", null, null, null, null, null, null);
+        SQLiteDatabase db = openOrCreateDatabase("expense.db", MODE_PRIVATE, null);
+        Cursor c = db.rawQuery("SELECT * FROM main.exp ",null);
+        //SQLiteDatabase dbb = helper.getWritableDatabase();
+        helper = new MyDBHelper(this, "expense.db", null, 1);
+        helper.update();
+        Log.d("main","update");
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
                 R.layout.store_all,
                 c,
                 new String[]{"_id","store_name" , "phone" , "address"},
                 new int[]{R.id.item_id , R.id.item_store_name , R.id.item_phone , R.id.item_address},
                 0);
+        Log.d("maid","restart");
         list.setAdapter(adapter);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                openOptionsDialog(list.getItemAtPosition(position).toString());
+                //openOptionsDialog(list.getItemAtPosition(position).toString());
                 Log.d("maid","dialog");
-                Toast.makeText(MainActivity.this,"你单击的是第"+(position+1)+"条数据",Toast.LENGTH_SHORT).show();
-            Log.d("maid","listonclick");
+
+                SQLiteDatabase db = openOrCreateDatabase("expense.db", MODE_PRIVATE, null);
+                Cursor c = db.rawQuery("SELECT * FROM main.exp WHERE _id = ?" , new String[]{Integer.toString(position+1)});
+                c.moveToFirst();
+                Log.d("maid",""+c.getString(1));
+
+                CustomDialogActivity.CDA_change_store_name = c.getString(1);
+                startActivity(
+                        new Intent(MainActivity.this,CustomDialogActivity.class));
+
+                //CustomDialogActivity dialog = new CustomDialogActivity(R.style.Dialog);
+
             }
 
-            // 對話框所執行的 function
+
+
+
+            //Intent intent = new Intent(MainActivity.this,dialog.class);
+            //startActivity(intent);
+
+
+            /*對話框所執行的 function
             private void openOptionsDialog(String xMessage) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
                 dialog.setTitle("對話框的標題");
@@ -101,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 dialog.show();
-            }
+            }*/
 
 
         });
