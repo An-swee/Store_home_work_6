@@ -93,7 +93,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="商品下單管理" />
             <Button
-                android:id="@+id/stoer_sell"
+                android:id="@+id/store_sell"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

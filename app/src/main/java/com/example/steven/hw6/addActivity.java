@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class addActivity extends AppCompatActivity {
 
@@ -31,21 +32,27 @@ public class addActivity extends AppCompatActivity {
     }
     public void add(View v)
     {
-        String store_name = edstore_name.getText().toString();
-        String address = edaddress.getText().toString();
-        int phone = Integer.parseInt(edphone.getText().toString());
-        ContentValues values = new ContentValues();
+        if (edstore_name.getText().toString().equals("") || edaddress.getText().toString().equals("") || edphone.getText().toString().equals(""))
+        {
+            Toast.makeText(this,"輸入資料不完全",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            String store_name = edstore_name.getText().toString();
+            String address = edaddress.getText().toString();
+            int phone = Integer.parseInt(edphone.getText().toString());
+            ContentValues values = new ContentValues();
 
-        values.put("store_name", store_name);
-        values.put("address", address);
-        values.put("phone", phone);
+            values.put("store_name", store_name);
+            values.put("address", address);
+            values.put("phone", phone);
 
-        long id = helper.getWritableDatabase().insert("exp", null, values);
+            long id = helper.getWritableDatabase().insert("exp", null, values);
 
-        Log.d("ADD", id+"");
+            Log.d("ADD", id + "");
 
-        startActivity(
-                new Intent(addActivity.this,MainActivity.class));
+            startActivity(
+                    new Intent(addActivity.this, MainActivity.class));
+        }
 
     }
     public void notadd(View v)

@@ -13,11 +13,15 @@ import android.util.Log;
 
 public class MyDBHelper extends SQLiteOpenHelper{
 
-    //private MyDBHelper helper;
+
+
+    static String del_store_table;
+
+
     public MyDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
+        //Log.d("SQL","sql in");
     }
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE  TABLE main.exp " +
@@ -25,42 +29,72 @@ public class MyDBHelper extends SQLiteOpenHelper{
                 "store_name VARCHAR NOT NULL , " +
                 "address VARCHAR NOT NULL , " +
                 "phone INTEGER NOT NULL)");
+    }
 
+    public boolean tabbleIsExist( String tableName){
+        boolean result = false;
+        SQLiteDatabase db = getWritableDatabase();
+        if(tableName == null){
+            return false;
+        }
+        Cursor cursor = null;
+        try {
+            String sql = "select count(*) as c from Sqlite_master  where type ='table' and name ='"+tableName.trim()+"' ";
+            cursor = db.rawQuery(sql, null);
+            if(cursor.moveToNext()){
+                int count = cursor.getInt(0);
+                if(count>0){
+                    result = true;
+                }
+            }
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return result;
+    }
+
+
+    public void new_store_table(String new_store_db_name)
+    {
+        if (tabbleIsExist(new_store_db_name) == false) {
+            SQLiteDatabase db = getWritableDatabase();
+            db.execSQL("CREATE  TABLE " + new_store_db_name +
+                    "(_id INTEGER PRIMARY KEY  AUTOINCREMENT , " +
+                    "icon INTEGER NOT NULL , " +
+                    "commodity VARCHAR NOT NULL , " +
+                    "money INTEGER NOT NULL , " +
+                    "amount INTEGER NOT NULL , " +
+                    "info VARCHAR )");
+            Log.d("Table", "創建Table:" + new_store_db_name);
+        }else
+            Log.d("Table", "Table已經存在:" + new_store_db_name);
     }
 
     public void update()
     {
-        Log.d("DB","update-1");
         SQLiteDatabase db = getWritableDatabase();
-        Log.d("DB","update0");
         Cursor c = db.rawQuery("SELECT * FROM main.exp ",null);
-        Log.d("DB","update1");
+
         c.moveToFirst();
-        Log.d("DB","update2");
-        //Log.d("maid", "onCreate: "+String.valueOf(c.getCount()));
         for(int i=1;i<=c.getCount();i++) {
-
             if(i != c.getInt(0)) {
-
                 ContentValues values = new ContentValues();
                 values.put("_id",i);
                 values.put("store_name", c.getString(1));
                 values.put("address", c.getString(2));
                 values.put("phone", c.getInt(3));
                 db.insert("exp", null, values);
-                Log.d("DB","update5");
                 String del_store_id = "_id = " + c.getString(0);
-                Log.d("DB","update6");
                 db.delete("main.exp",del_store_id,null);
-                Log.d("DB","update7");
             }
-            c.moveToNext();Log.d("DB","update8");
+            c.moveToNext();
         }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        final String drop = "DROP TABLE main.exp";
+        final String drop = "DROP TABLE IF EXISTS " + del_store_table;
         db.execSQL(drop);
         onCreate(db);
     }

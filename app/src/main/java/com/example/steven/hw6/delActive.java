@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 public class delActive extends AppCompatActivity {
     private EditText del_id;
@@ -23,26 +24,44 @@ public class delActive extends AppCompatActivity {
     }
     public void search_store(View v)
     {
+        if (del_id.getText().toString().equals(""))
+        {
+            Toast.makeText(this,"未輸入查詢資料",Toast.LENGTH_SHORT).show();
+        }
+        else {
 
-        //Cursor c = helper.getReadableDatabase().query(
-        //        "exp", null, delstore_name , null, null, null, null);
-        SQLiteDatabase db = openOrCreateDatabase("expense.db", MODE_PRIVATE, null);
-        Cursor c = db.rawQuery("SELECT * FROM main.exp WHERE store_name = ?" , new String[]{del_id.getText().toString()});
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
-                R.layout.store_all,
-                c,
-                new String[]{"_id","store_name" , "phone" , "address"},
-                new int[]{ R.id.item_id,R.id.item_store_name , R.id.item_phone , R.id.item_address},
-                0);
-        list.setAdapter(adapter);
+            //Cursor c = helper.getReadableDatabase().query(
+            //        "exp", null, delstore_name , null, null, null, null);
+            SQLiteDatabase db = openOrCreateDatabase("expense.db", MODE_PRIVATE, null);
+            Cursor c = db.rawQuery("SELECT * FROM main.exp WHERE store_name = ?", new String[]{del_id.getText().toString()});
+            if(c.getCount() == 0)
+                Toast.makeText(this,"查無此筆資料",Toast.LENGTH_LONG).show();
+            SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
+                    R.layout.store_all,
+                    c,
+                    new String[]{"_id", "store_name", "phone", "address"},
+                    new int[]{R.id.item_id, R.id.item_store_name, R.id.item_phone, R.id.item_address},
+                    0);
+            Log.d("search",""+c.getCount());
+            list.setAdapter(adapter);
+        }
     }
     public void del(View v)
     {
-        MyDBHelper helper = new MyDBHelper(this, "expense.db", null, 1);
-        String del_store_name = "store_name = " + del_id.getText().toString();
-        helper.getWritableDatabase().delete("main.exp",del_store_name,null);
-        startActivity(
-                new Intent(delActive.this,MainActivity.class));
+
+        SQLiteDatabase db = openOrCreateDatabase("expense.db", MODE_PRIVATE, null);
+        Cursor c = db.rawQuery("SELECT * FROM main.exp WHERE store_name = ?" , new String[]{del_id.getText().toString()});
+        c.moveToFirst();
+        String del_store_name = "store_name=" +"'" +del_id.getText().toString()+"'";
+        Log.d("delsql",del_store_name);
+        if(c.getCount() == 0)
+            Toast.makeText(this,"查無此筆資料",Toast.LENGTH_LONG).show();
+        else {
+            db.delete("main.exp", del_store_name, null);
+            db.execSQL("DROP TABLE IF EXISTS "+del_id.getText().toString());
+            startActivity(
+                    new Intent(delActive.this, MainActivity.class));
+        }
     }
     public void notdel(View v)
     {

@@ -48,16 +48,16 @@ public class MainActivity extends AppCompatActivity {
         store_map_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(
-                        new Intent(MainActivity.this,MapsActivity.class));
+                MapsActivity Maps = new MapsActivity();
+               // Maps.show_store_all();
             }
         });
-
+        helper = new MyDBHelper(this, "expense.db", null, 1);
+        helper.update();
         SQLiteDatabase db = openOrCreateDatabase("expense.db", MODE_PRIVATE, null);
         Cursor c = db.rawQuery("SELECT * FROM main.exp ",null);
         //SQLiteDatabase dbb = helper.getWritableDatabase();
-        helper = new MyDBHelper(this, "expense.db", null, 1);
-        helper.update();
+
         Log.d("main","update");
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
                 R.layout.store_all,
@@ -78,8 +78,9 @@ public class MainActivity extends AppCompatActivity {
                 Cursor c = db.rawQuery("SELECT * FROM main.exp WHERE _id = ?" , new String[]{Integer.toString(position+1)});
                 c.moveToFirst();
                 Log.d("maid",""+c.getString(1));
-
+                add_store_commodity.Search_name = c.getString(1);
                 CustomDialogActivity.CDA_change_store_name = c.getString(1);
+                MapsActivity.map_store_add = c.getString(2);
                 startActivity(
                         new Intent(MainActivity.this,CustomDialogActivity.class));
 
