@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +32,16 @@ public class MainActivity extends AppCompatActivity {
         delAuc = (Button) findViewById(R.id.delAuc);
         store_map_all = (Button) findViewById(R.id.store_map_all);
         final ListView list = (ListView) findViewById(R.id.list);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(
+                        new Intent(MainActivity.this, moni_Buy_car.class));
+            }
+        });
+
         addAuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,14 +69,14 @@ public class MainActivity extends AppCompatActivity {
         Cursor c = db.rawQuery("SELECT * FROM main.exp ",null);
         //SQLiteDatabase dbb = helper.getWritableDatabase();
 
-        Log.d("main","update");
+        //Log.d("main","update");
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
                 R.layout.store_all,
                 c,
                 new String[]{"_id","store_name" , "phone" , "address"},
                 new int[]{R.id.item_id , R.id.item_store_name , R.id.item_phone , R.id.item_address},
                 0);
-        Log.d("maid","restart");
+        //Log.d("maid","restart");
         list.setAdapter(adapter);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -78,13 +89,11 @@ public class MainActivity extends AppCompatActivity {
                 Cursor c = db.rawQuery("SELECT * FROM main.exp WHERE _id = ?" , new String[]{Integer.toString(position+1)});
                 c.moveToFirst();
                 Log.d("maid",""+c.getString(1));
-                add_store_commodity.Search_name = c.getString(1);
+                add_store_commodity.Search_name = new String(c.getString(1));
                 CustomDialogActivity.CDA_change_store_name = c.getString(1);
                 MapsActivity.map_store_add = c.getString(2);
                 startActivity(
                         new Intent(MainActivity.this,CustomDialogActivity.class));
-
-                //CustomDialogActivity dialog = new CustomDialogActivity(R.style.Dialog);
 
             }
 
@@ -125,29 +134,5 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
-
-
-
-
-        /*MyDBHelper helper = new MyDBHelper(this, "expense.db", null, 1);
-        Cursor c = helper.getReadableDatabase().query(
-                "exp", null, null, null, null, null, null);
-        SQLiteDatabase db = openOrCreateDatabase("expense.db", MODE_PRIVATE, null);
-
-        Cursor cursor = db.rawQuery("select _id, '店名：'|| store_name ||' ，聯絡電話：'|| phone store_np, '聯絡地址：'|| address address from main.exp",null);
-        Log.d("main","合併");
-        if (cursor != null && cursor.getCount() >= 0) {
-
-            SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, cursor, new String[]{"store_np", "address"}, new int[]{android.R.id.text1, android.R.id.text2}, 0);
-
-            list.setAdapter(adapter);
-
-        }*/
-
-
-
-
-
-
     }
 }

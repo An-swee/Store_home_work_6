@@ -65,7 +65,8 @@ public class MyDBHelper extends SQLiteOpenHelper{
                     "commodity VARCHAR NOT NULL , " +
                     "money INTEGER NOT NULL , " +
                     "amount INTEGER NOT NULL , " +
-                    "info VARCHAR )");
+                    "info VARCHAR , " +
+                    "com_store_name VARCHAR )");
             Log.d("Table", "創建Table:" + new_store_db_name);
         }else
             Log.d("Table", "Table已經存在:" + new_store_db_name);

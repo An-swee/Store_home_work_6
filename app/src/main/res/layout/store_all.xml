@@ -28,6 +28,11 @@
             android:text=" " />
 
         <TextView
+            android:id="@+id/textView9"
+            android:layout_width="5dp"
+            android:layout_height="match_parent" />
+
+        <TextView
             android:id="@+id/item_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,17 +54,18 @@
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:textSize="18dp"
                     android:text="  店名："
-                    android:textSize="20sp" />
+                     />
 
                 <TextView
                     android:id="@+id/item_store_name"
-                    android:layout_width="80dp"
+                    android:layout_width="70dp"
+                    android:textSize="18dp"
                     android:layout_height="wrap_content"
-
+                    android:textColor="#FF40FFCF"
                     android:text=""
-                    android:textSize="20sp" />
+                     />
 
                 <TextView
                     android:id="@+id/textView12"
