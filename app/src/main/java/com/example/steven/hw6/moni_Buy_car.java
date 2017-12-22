@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.MergeCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +26,14 @@ public class moni_Buy_car extends AppCompatActivity {
         final ListView list = (ListView) findViewById(R.id.list);
         SQLiteDatabase db = openOrCreateDatabase("expense.db", MODE_PRIVATE, null);
         Cursor c_store = db.rawQuery("SELECT * FROM main.exp ", null);
-
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(
+                        new Intent(moni_Buy_car.this, MainActivity.class));
+            }
+        });
         Log.d("moni", ""+c_store.getCount());
         c_store.moveToFirst();
         final String store_name_all[];

@@ -1,11 +1,11 @@
 package com.example.steven.hw6;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CustomBuyCar extends AppCompatActivity {
+public class CustomBuyCar extends Activity {
 
     Button amount_add;
     Button amount_down;
@@ -99,8 +99,18 @@ public class CustomBuyCar extends AppCompatActivity {
                         String del_store_com = "commodity = " + com_name;
                         db.delete(com_store_name,del_store_com,null);
                     }
-                    int_buy_amount = 0;
+
                     Toast.makeText(CustomBuyCar.this,"商品購買成功，歡迎下次光臨！",Toast.LENGTH_SHORT).show();
+
+                    ContentValues vs = new ContentValues();
+                    vs.put("icon", c.getString(1));
+                    vs.put("commodity", c.getString(2));
+                    vs.put("money", ( int_buy_amount * con_money ) );
+                    vs.put("amount", int_buy_amount);
+                    vs.put("info", c.getString(5));
+                    vs.put("com_store_name" , c.getString(6));
+                    db.insert(com_store_name+"order", null, vs);
+                    int_buy_amount = 0;
                     finish();
                     startActivity(
                             new Intent(CustomBuyCar.this,moni_Buy_car.class));

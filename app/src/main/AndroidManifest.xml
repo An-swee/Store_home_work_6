@@ -24,10 +24,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FinanceActivity"
-            android:label="@string/title_activity_finance"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".CustomDialogActivity"
             android:excludeFromRecents="true"
             android:noHistory="true"
@@ -57,12 +53,17 @@
             android:name=".moni_Buy_car"
             android:label="天天大賣場"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".CustomBuyCar"
+        <activity
+            android:name=".CustomBuyCar"
             android:excludeFromRecents="true"
             android:noHistory="true"
             android:taskAffinity=""
-            android:theme="@style/Theme.AppCompat.Dialog"
-            ></activity>
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity
+            android:name=".order_management"
+            android:label="商品下單管理" />
+        <activity android:name=".history_management"
+            android:label="商品銷售紀錄"></activity>
     </application>
 
 </manifest>

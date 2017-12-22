@@ -51,7 +51,8 @@ public class addActivity extends AppCompatActivity {
 
             Log.d("ADD", id + "");
             helper.new_store_table(new String(""+store_name));
-
+            helper.new_store_table(new String(""+store_name+"order"));
+            helper.new_store_table(new String(""+store_name+"history"));
             startActivity(
                     new Intent(addActivity.this, MainActivity.class));
         }

@@ -63,7 +63,22 @@ public class CustomDialogActivity extends Activity {
                 //finish();
             }
         });
-
+        store_car.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(
+                        new Intent(CustomDialogActivity.this,order_management.class));
+                Toast.makeText(CustomDialogActivity.this,"進行"+CDA_change_store_name+"商品下單管理", Toast.LENGTH_SHORT).show();
+            }
+        });
+        store_sell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(
+                        new Intent(CustomDialogActivity.this,history_management.class));
+                Toast.makeText(CustomDialogActivity.this,"查看"+CDA_change_store_name+"商品銷售紀錄", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 

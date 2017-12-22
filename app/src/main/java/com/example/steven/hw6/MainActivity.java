@@ -90,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
                 c.moveToFirst();
                 Log.d("maid",""+c.getString(1));
                 add_store_commodity.Search_name = new String(c.getString(1));
+                order_management.Search_name = new String(c.getString(1));
+                history_management.Search_name = new String(c.getString(1));
                 CustomDialogActivity.CDA_change_store_name = c.getString(1);
                 MapsActivity.map_store_add = c.getString(2);
                 startActivity(

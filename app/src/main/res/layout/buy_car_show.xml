@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability= "blocksDescendants">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,14 +33,18 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="100dp"
-                    android:layout_height="9dp" />
+                    android:id="@+id/item3_com_store_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="41dp"
+                    android:textColor="#ED4D83"
+                    android:textStyle="bold"
+                    android:text="待出貨商品"
+                    android:textSize="24dp" />
 
                 <TextView
                     android:id="@+id/textView19"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="32dp"
 
                     android:text="商品項目：" />
 
@@ -48,7 +55,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/item2_icon"
+                        android:id="@+id/item3_icon"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_weight="1" />
@@ -67,9 +74,9 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView24"
+                    android:id="@+id/textView25"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp" />
+                    android:layout_height="10dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -85,7 +92,7 @@
                         android:text="商品名稱：" />
 
                     <TextView
-                        android:id="@+id/item2_com_name"
+                        android:id="@+id/item3_com_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
@@ -107,7 +114,7 @@
                         android:text="商品金額：" />
 
                     <TextView
-                        android:id="@+id/item2_com_money"
+                        android:id="@+id/item3_com_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
@@ -129,7 +136,7 @@
                         android:text="商品數量：" />
 
                     <TextView
-                        android:id="@+id/item2_com_amount"
+                        android:id="@+id/item3_com_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
@@ -151,12 +158,40 @@
                         android:text="商品說明：" />
 
                     <TextView
-                        android:id="@+id/item2_com_info"
+                        android:id="@+id/item3_com_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
                         android:ems="10"
                         android:inputType="textPersonName" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView24"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+
+                        />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/s00015" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>

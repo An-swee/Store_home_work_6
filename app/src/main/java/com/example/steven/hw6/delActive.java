@@ -59,6 +59,8 @@ public class delActive extends AppCompatActivity {
         else {
             db.delete("main.exp", del_store_name, null);
             db.execSQL("DROP TABLE IF EXISTS "+del_id.getText().toString());
+            db.execSQL("DROP TABLE IF EXISTS "+del_id.getText().toString()+"order");
+            db.execSQL("DROP TABLE IF EXISTS "+del_id.getText().toString()+"history");
             startActivity(
                     new Intent(delActive.this, MainActivity.class));
         }

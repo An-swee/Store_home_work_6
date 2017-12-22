@@ -63,7 +63,7 @@
                     android:layout_width="70dp"
                     android:textSize="18dp"
                     android:layout_height="wrap_content"
-                    android:textColor="#FF40FFCF"
+                    android:textColor="#21DE7A"
                     android:text=""
                      />
 
