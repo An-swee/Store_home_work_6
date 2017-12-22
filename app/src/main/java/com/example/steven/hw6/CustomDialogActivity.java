@@ -24,7 +24,8 @@ public class CustomDialogActivity extends Activity {
     static String CDA_change_store_name;
 
 
-    @Override    protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         Log.d("CUD", "onCreate: ");
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);

@@ -1,9 +1,12 @@
 package com.example.steven.hw6;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,6 +25,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private double latitude_all=0;
     private double longitude_all=0;
+    private Geocoder geoCoder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,23 +49,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        //LatLng sydney = new LatLng(-34, 151);
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-
-        Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
-        String addressString = map_store_add;
+        geoCoder = new Geocoder(this, Locale.getDefault());
         List<Address> addressLocation = null;
         try {
-            addressLocation = geoCoder.getFromLocationName(addressString, 1);
+            addressLocation = geoCoder.getFromLocationName(map_store_add, 1);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //Log.d("map",map_store_add);
-        //Log.d("map",addressString);
+
+        Log.d("map",map_store_add);
+        Log.d("map",addressLocation.toString());
+
         double latitude = addressLocation.get(0).getLatitude();
         //Log.d("map",""+latitude);
         double longitude = addressLocation.get(0).getLongitude();
@@ -69,9 +67,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(store_add).title("我的億萬賣場－"+CustomDialogActivity.CDA_change_store_name));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude,longitude) ,20));
+
+    }
+    public void cheek_map_address(String ck_address)
+    {
+        //geoCoder = new Geocoder(this, Locale.getDefault());
+        List<Address> addLocation = null;
+        try {
+            Log.d("tt",ck_address);
+            addLocation = geoCoder.getFromLocationName(ck_address, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (addLocation.toString() != "[]" )
+        {
+            addActivity.cheek_map_address = "ok";
+        }
+        else
+            addActivity.cheek_map_address = "no";
     }
 
-   /* public void show_store_all()
+    public void show_store_all()
     {
 
         SQLiteDatabase db = openOrCreateDatabase("expense.db", MODE_PRIVATE, null);
@@ -104,5 +121,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             c.moveToNext();
         }
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude_all/c.getCount(),longitude_all/c.getCount()) ,11));
-    }*/
+    }
 }

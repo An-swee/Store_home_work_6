@@ -1,5 +1,6 @@
 package com.example.steven.hw6;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.MergeCursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,7 +22,7 @@ public class moni_Buy_car extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moni__buy_car);
         Log.d("moni","gomoni");
-        ListView list = (ListView) findViewById(R.id.list);
+        final ListView list = (ListView) findViewById(R.id.list);
         SQLiteDatabase db = openOrCreateDatabase("expense.db", MODE_PRIVATE, null);
         Cursor c_store = db.rawQuery("SELECT * FROM main.exp ", null);
 
@@ -54,8 +55,6 @@ public class moni_Buy_car extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //openOptionsDialog(list.getItemAtPosition(position).toString());
                 Log.d("position:",""+position);
-                Log.d("parent:",""+parent);
-                Log.d("view:",""+view);
                 Log.d("id",""+id);
 
                 int store_ck = 0;
@@ -65,47 +64,20 @@ public class moni_Buy_car extends AppCompatActivity {
                     store_ck++;
                 }
                 Log.d("List store:",store_name_all[store_ck]);
-                //SQLiteDatabase db = openOrCreateDatabase("expense.db", MODE_PRIVATE, null);
-                //Cursor ccc = db.rawQuery("SELECT * FROM " + store_name_all[store_ck] , null);
 
+                SQLiteDatabase db = openOrCreateDatabase("expense.db", MODE_PRIVATE, null);
+                Cursor c = db.rawQuery("SELECT * FROM "+store_name_all[store_ck]+" WHERE _id = ?" , new String[]{""+id});
+                c.moveToFirst();
+
+                CustomBuyCar.com_icon = c.getInt(1);
+                CustomBuyCar.com_name = c.getString(2);
+                CustomBuyCar.con_money = c.getInt(3);
+                CustomBuyCar.store_com_all_amount = c.getInt(4);
+                CustomBuyCar.com_store_name = c.getString(6);
+                startActivity(
+                        new Intent(moni_Buy_car.this,CustomBuyCar.class));
 
             }
-
-
-
-
-            //Intent intent = new Intent(MainActivity.this,dialog.class);
-            //startActivity(intent);
-
-
-            /*對話框所執行的 function
-            private void openOptionsDialog(String xMessage) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                dialog.setTitle("對話框的標題");
-                // 承接傳過來的字串，顯示在對話框之中
-                dialog.setMessage(xMessage);
-                // 設定 PositiveButton 也就是一般 確定 或 OK 的按鈕
-                dialog.setPositiveButton("確認", new DialogInterface.OnClickListener() {
-                    public void onClick( DialogInterface dialoginterface, int i) {
-                        // 當使用者按下確定鈕後所執行的動作
-                    }
-                } );
-                dialog.setNeutralButton("歷史銷售紀錄", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-                //設定 NegativeButton 也就是一般 取消 或 Cancel 的按鈕
-                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    public void onClick( DialogInterface dialoginterface, int i) {
-                        // 當使用者按下 取消鈕 後所執行的動作
-                        openOptionsDialog("你要按確定鈕才能結束唷");
-                    }
-                });
-                dialog.show();
-            }*/
-
 
         });
 

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.steven.hw6.moni_Buy_car">
+    tools:context="com.example.steven.hw6.moni_Buy_car"
+    android:focusableInTouchMode="true">
 
 
     <LinearLayout
@@ -14,6 +15,7 @@
 
         <ListView
             android:id="@+id/list"
+            android:descendantFocusability="beforeDescendants"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"

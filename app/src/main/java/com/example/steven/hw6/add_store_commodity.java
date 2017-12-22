@@ -56,7 +56,7 @@ public class add_store_commodity extends AppCompatActivity {
        // View layout1, layout2;
        // layout2 = inflater.inflate(R.layout.com_all, null);
        // setContentView(layout2);
-        Log.d("add_com:",""+image);
+
         List<Map<String, Object>> items = new ArrayList<Map<String,Object>>();
         for (int i = 0; i < image.length; i++) {
             Map<String, Object> item = new HashMap<String, Object>();
@@ -64,7 +64,7 @@ public class add_store_commodity extends AppCompatActivity {
             items.add(item);
             Log.d("add_com_icon:",""+image[i]);
 
-        }Log.d("add_com_icon:",""+image);
+        }
        SimpleAdapter adapter =  new SimpleAdapter(this,
                 items, R.layout.icon,
                 new String[]{"image"},
@@ -97,7 +97,7 @@ public class add_store_commodity extends AppCompatActivity {
             else {
 
                 int com_icon;
-                com_icon = 2131230855 + spinner.getSelectedItemPosition() ;
+                com_icon = 2131230858 + spinner.getSelectedItemPosition() ;
 
                 //String com_icon =  pic + String.valueOf(spinner.getSelectedItemPosition()+1);
 
@@ -155,7 +155,10 @@ public class add_store_commodity extends AppCompatActivity {
                 Toast.makeText(this, "商品數量不足無法上架", Toast.LENGTH_SHORT).show();
             }
             else {
-                String com_icon = "" + spinner.getSelectedItemPosition();
+                int com_icon;
+                com_icon = 2131230858 + spinner.getSelectedItemPosition() ;
+
+                //String com_icon = "" + spinner.getSelectedItemPosition();
                 Log.d("add_com", "" + spinner.getSelectedItemPosition());
                 String com_name = ed_com_name.getText().toString();
                 String com_money = ed_com_money.getText().toString();
@@ -169,7 +172,7 @@ public class add_store_commodity extends AppCompatActivity {
                 values.put("money", com_money);
                 values.put("amount", com_amount);
                 values.put("info", com_info);
-
+                values.put("com_store_name" , Search_name);
                 SQLiteDatabase db = openOrCreateDatabase("expense.db", MODE_PRIVATE, null);
                 ;
                 db.insert(Search_name, null, values);

@@ -15,7 +15,7 @@ public class addActivity extends AppCompatActivity {
     private EditText edphone;
     private EditText edaddress;
     private MyDBHelper helper;
-
+    public static String cheek_map_address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +37,7 @@ public class addActivity extends AppCompatActivity {
             Toast.makeText(this,"輸入資料不完全",Toast.LENGTH_SHORT).show();
         }
         else {
+
             String store_name = edstore_name.getText().toString();
             String address = edaddress.getText().toString();
             int phone = Integer.parseInt(edphone.getText().toString());
@@ -49,6 +50,7 @@ public class addActivity extends AppCompatActivity {
             long id = helper.getWritableDatabase().insert("exp", null, values);
 
             Log.d("ADD", id + "");
+            helper.new_store_table(new String(""+store_name));
 
             startActivity(
                     new Intent(addActivity.this, MainActivity.class));
