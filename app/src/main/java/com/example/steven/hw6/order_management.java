@@ -70,7 +70,7 @@ public class order_management extends AppCompatActivity {
                         // TODO Auto-generated method stub
                         Cursor c = db.rawQuery("SELECT * FROM "+Search_name+"order"+" WHERE _id = ?" , new String[]{""+del_id});
                         c.moveToFirst();
-                        String del_store_com = "commodity = " + c.getString(2);
+                        String del_store_com = "_id = " + del_id;
                         db.delete(Search_name+"order",del_store_com,null);
                         Toast.makeText(order_management.this, "已出貨！",Toast.LENGTH_SHORT).show();
 

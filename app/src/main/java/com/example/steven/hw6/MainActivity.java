@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("main","啟動");
         addAuc = (Button) findViewById(R.id.addAuc);
         delAuc = (Button) findViewById(R.id.delAuc);
-        store_map_all = (Button) findViewById(R.id.store_map_all);
+
         final ListView list = (ListView) findViewById(R.id.list);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -56,13 +56,7 @@ public class MainActivity extends AppCompatActivity {
                         new Intent(MainActivity.this,delActive.class));
             }
         });
-        store_map_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MapsActivity Maps = new MapsActivity();
-               // Maps.show_store_all();
-            }
-        });
+
         helper = new MyDBHelper(this, "expense.db", null, 1);
         helper.update();
         SQLiteDatabase db = openOrCreateDatabase("expense.db", MODE_PRIVATE, null);

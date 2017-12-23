@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -28,14 +29,16 @@ public class CustomBuyCar extends Activity {
     TextView buy_amount;
     private int int_buy_amount = 0;
     public static String com_name;
+    public static int com_id;
     public static int com_icon;
     public static int con_money;
     public static int store_com_all_amount;
     public static String com_store_name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_custom_buy_car);
         amount_add = (Button)findViewById(R.id.amount_up);
         amount_down = (Button)findViewById(R.id.amount_down);
@@ -90,13 +93,14 @@ public class CustomBuyCar extends Activity {
             public void onClick(View view) {
                 if(int_buy_amount != 0) {
                     SQLiteDatabase db = openOrCreateDatabase("expense.db", MODE_PRIVATE, null);
-                    Cursor c = db.rawQuery("SELECT * FROM "+com_store_name+" WHERE commodity = ?" , new String[]{com_name});
+                    Cursor c = db.rawQuery("SELECT * FROM "+com_store_name+" WHERE _id = ?" , new String[]{""+com_id});
                     c.moveToFirst();
                     ContentValues values = new ContentValues();
+                    Log.d("debug","com_name:"+c.getString(2)+",c_money:"+c.getInt(3)+",c_amount:"+c.getInt(4)+",c_new_amount"+(c.getInt(4)-int_buy_amount)+",serch_com_name:"+com_name);
                     values.put("amount", c.getInt(4)-int_buy_amount);
-                    db.update(com_store_name,values,"commodity="+"'"+com_name+"'",null);
+                    db.update(com_store_name,values,"_id="+"'"+c.getInt(0)+"'",null);
                     if(c.getInt(4)-int_buy_amount == 0){
-                        String del_store_com = "commodity = " + com_name;
+                        String del_store_com = "_id = " + c.getInt(0);
                         db.delete(com_store_name,del_store_com,null);
                     }
 

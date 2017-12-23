@@ -77,6 +77,7 @@ public class moni_Buy_car extends AppCompatActivity {
                 Cursor c = db.rawQuery("SELECT * FROM "+store_name_all[store_ck]+" WHERE _id = ?" , new String[]{""+id});
                 c.moveToFirst();
 
+                CustomBuyCar.com_id = c.getInt(0);
                 CustomBuyCar.com_icon = c.getInt(1);
                 CustomBuyCar.com_name = c.getString(2);
                 CustomBuyCar.con_money = c.getInt(3);
